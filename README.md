@@ -34,6 +34,9 @@ Token Address:  BEjQsAbkd9vsBD4GF1aeCGVemqU8VsxfqkBKSGoA3R2C
     
     InitializeAccount
         Initializes a new account to hold tokens.  If this account is associated
+
+    FreezeAccount
+        Freeze an Initialized account using the Mint's freeze_authority (if set)
     
     Transfer {
         amount: u64
