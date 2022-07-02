@@ -192,6 +192,10 @@ impl Processor {
         let signer_infos = account_info_iter.as_slice();
         multisig.m = m;
         multisig.n = signer_infos.len() as u8;
+
+        if multisig.m > multisig.n {
+            return Err(TokenError::RequiredSignersNotGreaterThanProvidedSigners.into());
+        }
         if !is_valid_signer_index(multisig.n as usize) {
             return Err(TokenError::InvalidNumberOfProvidedSigners.into());
         }
@@ -355,8 +359,12 @@ impl Processor {
         let owner_info = next_account_info(account_info_iter)?;
 
         let mut source_account = Account::unpack(&source_account_info.data.borrow())?;
+        let mut delegate_account = Account::unpack(&delegate_info.data.borrow())?;
 
         if source_account.is_frozen() {
+            return Err(TokenError::AccountFrozen.into());
+        }
+        if delegate_account.is_frozen() {
             return Err(TokenError::AccountFrozen.into());
         }
 
@@ -819,6 +827,8 @@ impl Processor {
         Ok(())
     }
 
+    /// Processes an
+
     /// Processes an [AmountToUiAmount](enum.TokenInstruction.html) instruction
     pub fn process_ui_amount_to_amount(
         program_id: &Pubkey,
@@ -1048,6 +1058,9 @@ impl PrintProgramError for TokenError {
             }
             TokenError::NonNativeNotSupported => {
                 msg!("Error: Instruction does not support non-native tokens")
+            }
+            TokenError::RequiredSignersNotGreaterThanProvidedSigners => {
+                msg!("Error: Required signers is not greater than provided signers")
             }
         }
     }

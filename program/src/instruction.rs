@@ -226,6 +226,7 @@ pub enum TokenInstruction<'a> {
     ///   2. `[]` The mint's multisignature freeze authority.
     ///   3. ..3+M `[signer]` M signer accounts.
     FreezeAccount,
+
     /// Thaw a Frozen account using the Mint's freeze_authority (if set).
     ///
     /// Accounts expected by this instruction:

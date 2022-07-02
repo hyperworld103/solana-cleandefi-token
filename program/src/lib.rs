@@ -18,8 +18,8 @@ use solana_program::{entrypoint::ProgramResult, program_error::ProgramError, pub
 
 /// Convert the UI representation of a token amount (using the decimals field defined in its mint)
 /// to the raw amount
-pub fn ui_amount_to_amount(ui_amount: f64, decimals: u8) -> u64 {
-    (ui_amount * 10_usize.pow(decimals as u32) as f64) as u64
+pub fn ui_amount_to_amount(ui_amount: f64, decimals: u8) -> u128 {
+    (ui_amount * 10_usize.pow(decimals as u32) as f64) as u128
 }
 
 /// Convert a raw amount to its UI representation (using the decimals field defined in its mint)

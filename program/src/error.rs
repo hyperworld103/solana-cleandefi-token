@@ -37,6 +37,9 @@ pub enum TokenError {
     /// Invalid number of required signers.
     #[error("Invalid number of required signers")]
     InvalidNumberOfRequiredSigners,
+    /// Required signers not greater than provided signers.
+    #[error("Required signers not greater than provided signers")]
+    RequiredSignersNotGreaterThanProvidedSigners,
     /// State is uninitialized.
     #[error("State is unititialized")]
     UninitializedState,
